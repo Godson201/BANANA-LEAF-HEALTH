@@ -1,0 +1,28 @@
+# Local Python environment and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Downloaded datasets and large third-party screening model
+data/
+output/leaf_screening_model/
+*.safetensors
+*.partial
+*.log
+
+# Generated sharing archives and Node dependencies
+*.zip
+node_modules/
+
+# Local credentials and editor settings
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+kaggle.json
+*.pem
+*.key

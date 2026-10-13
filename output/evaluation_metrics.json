@@ -1,0 +1,11 @@
+{
+  "test_loss": 0.03772040729635154,
+  "test_accuracy": 0.9777777777777777,
+  "macro_f1": 0.9643150966680378,
+  "best_epoch": 13,
+  "actual_epochs": 19,
+  "unique_images": 897,
+  "training_images": 627,
+  "validation_images": 135,
+  "test_images": 135
+}

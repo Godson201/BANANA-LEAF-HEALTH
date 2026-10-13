@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#173e32" name="theme-color"/>
+<title>LeafLens | Banana health and farmer guidance</title>
+<meta content="Upload a banana leaf photo and explore predictions from your trained disease classifier." name="description"/>
+<link href="static/style.css?v=5" rel="stylesheet"/>
+<link href="static/farmer.css?v=1" rel="stylesheet"/>
+<link href="static/model.css?v=1" rel="stylesheet"/>
+<script defer="" src="static/app.js?v=5"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to dashboard</a>
+<aside class="sidebar">
+<a aria-label="LeafLens home" class="brand" href="/">
+<span aria-hidden="true" class="brand-icon"><svg viewbox="0 0 32 32"><path d="M25 5C12 3 5 11 8 20c3 9 17 6 17-15Z"></path><path d="m6 28 14-15M13 20l-1-6m6 1 6 1"></path></svg></span>
+<span>LeafLens<span class="brand-caption">BANANA LEAF HEALTH</span></span>
+</a>
+<p class="nav-label">WORKSPACE</p>
+<nav aria-label="Dashboard navigation">
+<a class="nav-item active" href="#diagnosis"><span aria-hidden="true">◈</span> Leaf diagnosis</a>
+<a class="nav-item" href="#performance"><span aria-hidden="true">▥</span> Model performance</a>
+<a class="nav-item" href="#disease-guide"><span aria-hidden="true">▤</span> Disease guide</a><a class="nav-item" href="#field-check"><span aria-hidden="true">✓</span> Field check</a></nav>
+<div class="sidebar-bottom">
+<span aria-hidden="true" class="mini-leaf">↗</span>
+<h3>A closer look.<br/>A better understanding.</h3>
+<p>Real model predictions, clear limitations and source-linked farmer guidance.</p>
+<span class="local-label">Private • runs on this computer</span>
+</div>
+<div class="sidebar-credit">Built by Godson IT <span>FA2 · Machine Learning</span></div>
+</aside>
+<main class="main" id="main">
+<header class="topbar">
+<div class="breadcrumb">Workspace <span>/</span> <strong>Leaf diagnosis</strong></div>
+<span class="model-status" id="model-status">Connecting to model…</span>
+</header>
+<section aria-labelledby="page-title" id="diagnosis">
+<div class="intro">
+<div><p class="eyebrow">BANANA HEALTH • FARMER DECISION SUPPORT</p>
+<h1 id="page-title">A clearer leaf.<br/><em>A better next step.</em></h1>
+<p class="intro-copy">Check a banana leaf, understand the model result and find practical next steps for your farm.</p>
+</div>
+<div class="intro-note"><div class="hero-photo"><img alt="Example banana leaf" src="assets/healthy.jpg"/><span>Observe. Compare. Act with care.</span></div></div>
+</div><div aria-label="How it works" class="journey"><span><b>1</b> Upload a leaf</span><span><b>2</b> Review the prediction</span><span><b>3</b> Check the whole plant</span><span><b>4</b> Choose the next step</span></div><div class="model-chooser panel"><div><label for="model-choice">Choose a prediction model</label><p id="model-note">Original four-class leaf-spot model.</p></div><select id="model-choice"><option value="baseline">Leaf-spot model · 4 classes</option><option value="expanded">Research preview · 6 classes</option></select></div>
+<div aria-label="Model evaluation summary" class="stats">
+<div class="stat"><div aria-hidden="true" class="stat-icon">◎</div><div><span class="stat-value" id="metric-accuracy">97.78<small>%</small></span><span class="stat-label">Held-out test accuracy</span></div><span class="stat-tag" id="metric-correct">132 / 135 correct</span></div>
+<div class="stat"><div aria-hidden="true" class="stat-icon">❖</div><div><span class="stat-value" id="metric-classes">4</span><span class="stat-label">Recognized leaf classes</span></div><span class="stat-tag" id="metric-class-note">3 disease · 1 healthy</span></div>
+<div class="stat"><div aria-hidden="true" class="stat-icon">▤</div><div><span class="stat-value" id="metric-images">897</span><span class="stat-label">Unique dataset images</span></div><span class="stat-tag">After duplicate checks</span></div>
+</div>
+<div class="workspace-grid">
+<section aria-labelledby="upload-heading" class="panel upload-panel">
+<div class="panel-heading"><div><span class="step">01</span><h2 id="upload-heading">Add a clear leaf photo</h2></div><span class="subtle-label">JPG · PNG · WEBP</span></div>
+<form id="upload-form">
+<input accept="image/jpeg,image/png,image/webp" class="sr-only" id="image-input" name="image" type="file"/>
+<button aria-controls="image-input" class="drop-zone" id="drop-zone" type="button">
+<span aria-hidden="true" class="upload-art"><svg viewbox="0 0 64 64"><rect height="34" rx="7" width="38" x="13" y="16"></rect><circle cx="25" cy="27" r="3"></circle><path d="m16 44 11-11 8 8 5-5 9 9M46 5v15m-6-9 6-6 6 6"></path></svg></span>
+<strong>Drop your leaf photo here</strong><span>or <b>browse files</b> on your device</span><small>One clear photo · Up to 8 MB</small>
+</button>
+<div class="preview-area" hidden="" id="preview-area">
+<img alt="Selected banana leaf photo" id="photo-preview"/>
+<div class="file-strip"><div><strong id="file-name"></strong><span id="file-detail"></span></div><button class="text-button" id="change-photo" type="button">Change photo</button></div>
+</div>
+<p class="error-message" hidden="" id="error-message" role="alert"></p>
+<button class="primary-button" disabled="" id="analyze-button" type="submit"><span id="analyze-label">Analyze leaf</span><span aria-hidden="true" id="analyze-arrow">↗</span></button>
+</form>
+<p class="privacy-note"><span aria-hidden="true">◇</span> Photos are processed locally and aren't kept by the app.</p>
+<div class="samples-heading"><h3>Try a real example</h3><span>Known banana test images</span></div>
+<div class="sample-grid">
+<button aria-label="Try cordana sample" class="sample-button" data-sample="cordana" type="button">
+<img alt="cordana banana leaf example" loading="lazy" src="assets/cordana.jpg"/><span>Cordana</span>
+</button>
+<button aria-label="Try healthy sample" class="sample-button" data-sample="healthy" type="button">
+<img alt="healthy banana leaf example" loading="lazy" src="assets/healthy.jpg"/><span>Healthy</span>
+</button>
+<button aria-label="Try pestalotiopsis sample" class="sample-button" data-sample="pestalotiopsis" type="button">
+<img alt="pestalotiopsis banana leaf example" loading="lazy" src="assets/pestalotiopsis.jpg"/><span>Pestalotiopsis</span>
+</button>
+<button aria-label="Try sigatoka sample" class="sample-button" data-sample="sigatoka" type="button">
+<img alt="sigatoka banana leaf example" loading="lazy" src="assets/sigatoka.jpg"/><span>Sigatoka</span>
+</button>
+<button aria-label="Try experimental Fusarium / Panama sample" class="sample-button experimental-sample" data-sample="fusarium_wilt" hidden="" type="button"><img alt="Labeled Fusarium / Panama research example" loading="lazy" src="assets/fusarium_wilt.jpg"/><span>Fusarium / Panama</span></button><button aria-label="Try experimental Moko wilt sample" class="sample-button experimental-sample" data-sample="moko_wilt" hidden="" type="button"><img alt="Labeled Moko wilt research example" loading="lazy" src="assets/moko_wilt.jpg"/><span>Moko wilt</span></button></div>
+</section>
+<section aria-busy="false" aria-labelledby="result-heading" class="panel result-panel" id="result-panel">
+<div class="panel-heading"><div><span class="step">02</span><h2 id="result-heading">Result &amp; next steps</h2></div><span class="result-label" id="result-label">Awaiting photo</span></div>
+<div class="empty-result" id="empty-result">
+<span aria-hidden="true" class="leaf-illustration"><svg viewbox="0 0 160 180"><path class="leaf-shadow" d="M34 145C7 85 52 32 134 22c19 77-13 133-77 128Z"></path><path class="leaf-body" d="M29 139C7 81 52 28 133 17c15 74-17 130-76 128Z"></path><path class="leaf-vein" d="M28 165 111 43M56 125l-17-32m35 7-7-40m18 28 36-3m-53 25 44 5"></path></svg></span>
+<h3>A little insight is one photo away.</h3><p>Choose a leaf photo or try a sample.<br/>Your prediction and class scores will appear here.</p>
+<span class="empty-chip">4 classes. One clear view.</span>
+</div>
+<div class="loading-result" hidden="" id="loading-result"><span class="spinner"></span><h3>Taking a closer look…</h3><p>Checking photo suitability and comparing leaf predictions.</p></div>
+<div aria-live="polite" class="empty-result" hidden="" id="unassessed-result">
+<span class="empty-chip">No disease label issued</span>
+<h3 id="unassessed-title" style="margin-top:22px">Unable to assess this photo</h3>
+<p id="unassessed-message" style="max-width:330px"></p>
+<button class="secondary-button" id="retry-photo" style="margin-top:22px" type="button">Choose another photo</button>
+<button class="secondary-button" hidden="" id="confirm-banana" style="margin-top:12px" type="button">This is a banana leaf — classify it</button><p>Use confirmation only for a known banana leaf. It overrides automatic subject screening.</p></div>
+<div aria-live="polite" class="prediction-result" hidden="" id="prediction-result">
+<p class="eyebrow">PREDICTED CLASS</p><div class="prediction-title"><h3 id="predicted-class"></h3><span class="class-type" id="class-type"></span></div>
+<p class="result-description" id="result-description"></p>
+<div class="confidence-card"><span>Top model score</span><strong id="top-score"></strong><div class="confidence-track"><div id="confidence-fill"></div></div></div><section aria-labelledby="care-heading" class="care-panel" hidden="" id="care-panel">
+<div class="care-heading"><span class="eyebrow">FARMER NEXT STEPS</span><h4 id="care-heading">What you can do next</h4></div>
+<p id="care-summary"></p><ol id="care-actions"></ol><p class="care-review" id="care-review"></p>
+<a id="care-source" rel="noopener noreferrer" target="_blank">Read the source guidance ↗</a>
+<p class="guidance-note">General guidance, not a confirmed diagnosis or a pesticide prescription. Local advice should guide treatment.</p></section>
+<div class="probability-heading"><h4 id="class-comparison-title">How the four classes compare</h4><span>Model probability</span></div>
+<div aria-label="Class probability chart" class="probability-chart" id="probability-chart" role="img"></div>
+<p class="sample-note" hidden="" id="sample-note"></p>
+<p class="score-note">Model scores are not a confirmed diagnosis. Unrecognized subjects show Uncertain. Recognized or user-confirmed banana leaves receive a category; weak predictions are marked tentative.</p>
+<div class="result-actions"><button class="secondary-button" id="download-result" type="button">↓ Download result</button><button class="text-button" id="reset-button" type="button">Test another photo ↗</button><button class="text-button" id="print-result" type="button">Print result</button></div>
+</div>
+<div class="result-footer">Saved model · MobileNetV3 Small · Local inference</div>
+</section>
+</div>
+<div class="tips"><span aria-hidden="true" class="tip-icon">✧</span><strong>A better photo, a clearer result.</strong><p>Use natural light, keep the leaf in focus and include the affected area. Confirm banana identity only when you know the plant.</p></div>
+</section>
+<section aria-labelledby="field-heading" class="farmer-section" id="field-check">
+<div class="section-heading"><div><p class="eyebrow">LOOK BEYOND ONE LEAF</p><h2 id="field-heading">How is the rest of your plant?</h2></div><span class="evaluation-badge">Farmer-reported symptoms</span></div>
+<p class="section-copy">A leaf model cannot rule out wilt, viruses or problems in flowers and fruit. Use this checklist to decide when to ask for help.</p>
+<div class="field-grid"><form class="panel field-form" id="field-form">
+<fieldset><legend>What have you noticed?</legend>
+<label><input name="symptom" type="checkbox" value="whole_plant_wilt"/> The whole plant is wilting or yellowing</label>
+<label><input name="symptom" type="checkbox" value="bunched_growth"/> New leaves look stunted or bunched together</label>
+<label><input name="symptom" type="checkbox" value="flower_fruit_changes"/> Flowers or fruit have unusual changes</label>
+<label><input name="symptom" type="checkbox" value="spreading"/> Similar symptoms are spreading to other plants</label>
+<label><input name="symptom" type="checkbox" value="leaf_spots"/> I mainly see spots on a leaf</label></fieldset>
+<label class="farm-note-label" for="farm-note">Field note <span>(optional; included only in your downloaded result)</span></label>
+<input id="farm-note" maxlength="200" placeholder="For example: plot 2, three plants affected" type="text"/>
+<button class="primary-button" id="field-button" type="submit">Get next steps ↗</button></form>
+<div aria-live="polite" class="panel field-result" id="field-result"><span class="empty-chip">A useful second check</span><h3>Observe the whole plant.</h3><p>Select the symptoms you can see. The checklist provides rule-based guidance, not another AI disease diagnosis.</p></div></div>
+</section>
+<section aria-labelledby="guide-heading" class="farmer-section" id="disease-guide">
+<div class="section-heading"><div><p class="eyebrow">UNDERSTAND THE POSSIBILITIES</p><h2 id="guide-heading">Banana health guide</h2></div><span class="evaluation-badge">Source-linked advice</span></div>
+<p class="section-copy">Four leaf classes are supported by the original model. The research preview adds Fusarium/Panama and Moko. Bunchy top and Xanthomonas wilt remain guidance-only; they are not AI prediction classes.</p>
+<div class="guide-toolbar"><label for="disease-search">Find a condition</label><input id="disease-search" placeholder="Search symptoms or disease name…" type="search"/><select aria-label="Filter disease guide" id="disease-filter"><option value="all">All conditions</option><option value="model">Model-supported classes</option><option value="guidance">Guidance only</option></select></div>
+<p aria-live="polite" class="section-copy" id="guide-count"></p><div class="disease-grid" id="disease-cards"><p>Loading the disease guide…</p></div>
+</section><section aria-labelledby="performance-heading" class="performance" id="performance">
+<div class="section-heading"><div><p class="eyebrow">BEHIND THE PREDICTION</p><h2 id="performance-heading">A look at model performance</h2></div><span class="evaluation-badge" id="performance-badge">135 held-out test images</span></div>
+<p class="section-copy" id="performance-note">These results measure the original four-class classifier on known banana dataset images. Performance on new farms and cameras may differ.</p>
+<div class="performance-stats"><span><b id="metric-f1">0.9643</b> Macro F1</span><span><b id="metric-loss">0.0377</b> Test loss</span><span><b id="metric-epochs">19</b> Training epochs</span><span><b id="metric-best">13</b> Selected epoch</span></div>
+<div class="chart-grid"><figure class="panel chart-card"><figcaption>Where predictions were right—and wrong<span>Rows: true class · Columns: predicted class</span></figcaption><img alt="Held-out test confusion matrix for cordana, healthy, pestalotiopsis and sigatoka; diagonal cells are correct predictions." id="confusion-chart" loading="lazy" src="assets/confusion_matrix.png"/></figure><figure class="panel chart-card"><figcaption>Learning over time<span>Training and validation accuracy</span></figcaption><img alt="Training and validation accuracy; the dashed line marks the epoch selected by validation loss." id="accuracy-chart" loading="lazy" src="assets/accuracy_curve.png"/><p id="training-note">Training stopped after six epochs without lower validation loss. The weights from epoch 13 were restored.</p></figure></div>
+</section>
+<footer class="footer"><span>LeafLens <b>·</b> A little clarity for every leaf.</span><span>Godson IT • Local farmer-support prototype</span></footer>
+</main>
+</body>
+</html>

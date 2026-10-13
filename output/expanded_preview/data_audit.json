@@ -1,0 +1,16 @@
+{
+  "source": "https://data.mendeley.com/datasets/79w2n6b4kf/1",
+  "license": "CC BY 4.0",
+  "policy": "Original images only; no publisher-provided augmented images.",
+  "excluded_duplicates": 0,
+  "classes": {
+    "fusarium_wilt": {
+      "original_images": 41,
+      "similarity_groups": 41
+    },
+    "moko_wilt": {
+      "original_images": 55,
+      "similarity_groups": 55
+    }
+  }
+}
